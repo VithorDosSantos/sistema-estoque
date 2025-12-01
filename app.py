@@ -1,4 +1,3 @@
-import json
 from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
@@ -79,7 +78,7 @@ def criar_produto():
     data = request.json
     if not data.get('produto') or not data.get('quantidade') or not data.get('valor'):
         return jsonify({'erro': 'Nome, quantidade e valor são obrigatórios'}), 400
-    
+
     produto = adicionar_produto(data['produto'], data['quantidade'], data['valor'])
     return jsonify(produto), 201
 
@@ -89,15 +88,15 @@ def comprar():
     data = request.json
     produto_id = data.get('id')
     quantidade = data.get('quantidade')
-    
+
     if not produto_id or not quantidade:
         return jsonify({'erro': 'ID do produto e quantidade são obrigatórios'}), 400
-    
+
     resultado = comprar_produto(int(produto_id), int(quantidade))
-    
+
     if resultado is None:
         return jsonify({'erro': 'Produto não encontrado'}), 404
-    
+
     return jsonify(resultado)
 
 
@@ -106,12 +105,12 @@ def confirmar():
     data = request.json
     produto_id = data.get('id')
     quantidade = data.get('quantidade')
-    
+
     if not produto_id or not quantidade:
         return jsonify({'erro': 'ID do produto e quantidade são obrigatórios'}), 400
-    
+
     sucesso = confirmar_compra(int(produto_id), int(quantidade))
-    
+
     if sucesso:
         return jsonify({'mensagem': 'Compra confirmada com sucesso!'})
     else:
@@ -122,5 +121,5 @@ if __name__ == '__main__':
     adicionar_produto("Notebook", 10, 2500.00)
     adicionar_produto("Mouse", 50, 45.90)
     adicionar_produto("Teclado", 30, 150.00)
-    
+
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -1,0 +1,12 @@
+[MASTER]
+ignore=venv,env,.venv,ENV,__pycache__
+
+[MESSAGES CONTROL]
+disable=C0111,C0103,R0903,W0703,C0301
+
+[FORMAT]
+max-line-length=120
+
+[DESIGN]
+max-args=7
+max-locals=15
